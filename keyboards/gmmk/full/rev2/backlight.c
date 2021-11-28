@@ -31,7 +31,7 @@
  *
  * i2c_delay 1 loop about 7 cycles. Under 48MHz, the actual delay is around 0.9us and 1.5us respectively.
  */
-#define I2C_DELAY           i2c_delay(1)
+#define I2C_DELAY           i2c_delay(2)
 
 #ifdef USE_FRAMEBUFFER
 static RGB g_fb[DRIVER_LED_TOTAL];
