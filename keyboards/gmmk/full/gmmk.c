@@ -55,6 +55,7 @@ void chThdSleep(sysinterval_t time) {
 /* suspend thread used in usb_main.c */
 msg_t chThdSuspendTimeoutS(thread_reference_t *trp, sysinterval_t timeout) {
     osalSysUnlock();
+    wait_ms(1);
     //while (usbGetTransmitStatusI(&USBD1, KEYBOARD_IN_EPNUM));
 #ifdef SHARED_EP_ENABLE
     //while (usbGetTransmitStatusI(&USBD1, SHARED_IN_EPNUM));
