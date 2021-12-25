@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_TRNS,    KC_TRNS,    KC_TRNS,    EEP_RST,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_SAI,    KC_TRNS,
                         KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,    RGB_HUD,    KC_TRNS,    RGB_HUI,
                         KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_SAD,    KC_TRNS,
-                        KC_TRNS,    GUI_LOCK,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_SPD,    RGB_VAD,        RGB_VAI,        RGB_SPI,    KC_TRNS,    KC_TRNS,    RGB_TOG,    KC_TRNS,
+                        KC_TRNS,    GUI_LOCK,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_SPD,    RGB_VAD,        RGB_VAI,        RGB_SPI,    KC_SLEP,    KC_TRNS,    RGB_TOG,    KC_TRNS,
                         KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_M_B,    RGB_M_SW,   RGB_MOD,    RGB_M_R,    RGB_M_P,    RGB_RMOD,       KC_TRNS,        KC_TRNS),
     [_L2] = {[0 ... MATRIX_ROWS - 1] = {[0 ... MATRIX_COLS - 1] = KC_TRNS}},
     [_L3] = {[0 ... MATRIX_ROWS - 1] = {[0 ... MATRIX_COLS - 1] = KC_TRNS}}
