@@ -43,7 +43,7 @@
 
 #define DIODE_DIRECTION ROW2COL
 
-/* 
+/*
  * Feature
  */
 #define USB_POLLING_INTERVAL_MS 1           /* 1000 Hz */
@@ -52,20 +52,30 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true /* rgb off when power off / suspend */
 // #define VIA_OPENRGB_HYBRID
 // #define USE_FRAMEBUFFER
-// #define KEYMAP_ISO 1
-/* default ripple effect */
+
+#ifdef RGB_MATRIX_ENABLE
 #ifdef RGB_MATRIX_CUSTOM_USER
+/* default ripple effect */
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CUSTOM_RIPPLE
+#else
+/* default to reactive effect */
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE
+#define RGB_MATRIX_STARTUP_SPD 50   // slower reactive fade (0 to 255)
+#define RGB_MATRIX_STARTUP_HUE 8    // orange hue
+#define RGB_MATRIX_STARTUP_SAT 255  // vivid saturation
+#define RGB_MATRIX_STARTUP_VAL 160  // reduced brightness
+#endif
 #endif
 
-/* 
+/*
  * Optimization
  */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define LAYER_STATE_8BIT
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1200
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1200
 #define NO_DEBUG 1
 // #define NO_PRINT 1
 #define OPENRGB_DIRECT_MODE_UNBUFFERED  /* use unbuffered direct mode in OpenRGB protocol */
