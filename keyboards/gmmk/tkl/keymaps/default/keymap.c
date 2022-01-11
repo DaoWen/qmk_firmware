@@ -3,6 +3,7 @@
 #define _BL 0
 #define _FN 1
 
+#define GUI_LOCK    0x1689
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* The GMMK uses a 7x16 matrix. Some keys are not wired in the matrix at their physical location */
@@ -20,17 +21,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_TRNS,    KC_TRNS,    KC_TRNS,    EEP_RST,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,
                         KC_TRNS,    KC_TRNS,    RGB_TOG,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,
                         KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,
-                        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_HUD,    RGB_VAD,        RGB_VAI,        RGB_HUI,    KC_TRNS,
+                        KC_TRNS,    GUI_LOCK,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_HUD,    RGB_VAD,        RGB_VAI,        RGB_HUI,    KC_TRNS,
                         KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_M_B,    RGB_RMOD,   RGB_M_SW,   RGB_M_R,    RGB_MOD),
 
 };
 
-void matrix_init_user(void) {
+void matrix_init_user(void)
+{
 }
 
-void matrix_scan_user(void) {
+void matrix_scan_user(void)
+{
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+    switch (keycode) {
+        case GUI_LOCK:
+            /* win lock */
+            if (record->event.pressed) {
+                keymap_config.raw = eeconfig_read_keymap();
+                keymap_config.no_gui = !keymap_config.no_gui;
+                eeconfig_update_keymap(keymap_config.raw);
+                clear_keyboard();
+            }
+
+        return false;
+    }
+
     return true;
 }
