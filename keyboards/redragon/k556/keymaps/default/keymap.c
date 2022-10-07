@@ -16,6 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
+// custom winlock keycode
+#define GUI_LOCK (SAFE_RANGE)
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -34,11 +37,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 {   KC_LSFT,    KC_NUBS,    KC_Z,       KC_X,    KC_C,       KC_V,    KC_B,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_NO,      KC_RSFT,    KC_NO,      KC_UP,      KC_NO,      KC_P1,      KC_P2,      KC_P3,      KC_PENT },
                 {   KC_LCTL,    KC_LGUI,    KC_LALT,    KC_SPC,  KC_RALT,    MO(_FN), KC_APP,  KC_NO,      KC_RCTL,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_NO,      KC_P0,      KC_PDOT,    KC_NO   }
               },
-    [_FN]   = { {   RESET,      KC_MSEL,    KC_VOLD,    KC_VOLU, KC_MUTE,    KC_MSTP, KC_MPRV, KC_MPLY,    KC_MNXT,    KC_MAIL,    KC_WHOM,    KC_CALC,    RGB_TOG,    _______,    _______,    _______,    KC_SLEP,    _______,    _______,    _______,    _______ },
-                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    RGB_SPD,    RGB_SPI,    _______,    RGB_M_P,    RGB_M_B,    RGB_M_R,    _______,    _______,    _______,    _______ },
-                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,   RGB_M_SW,    RGB_MOD,   RGB_RMOD,   _______,    _______,    _______,    _______ },
-                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______ },
-                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    RGB_VAI,    _______,    KC_BRIU,    KC_BRID,    _______,    _______ },
-                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    RGB_HUD,    RGB_VAD,    RGB_HUI,    _______,    _______,    _______,    _______ }
-             }
+    [_FN]   = { {   RESET,      KC_MYCM,    KC_WSCH,    KC_CALC, KC_MSEL,    KC_MPRV, KC_MNXT, KC_MPLY,    KC_MSTP,    KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_SLEP,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______ },
+                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    RGB_HUI,    _______,    RGB_M_B,    RGB_M_SW,   RGB_MOD,    _______,    _______,    _______,    _______ },
+                {   _______,    _______,    _______,    EEP_RST, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    RGB_M_R,    RGB_M_P,    RGB_RMOD,   _______,    RGB_SAI,    _______,    _______ },
+                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    RGB_HUD,    _______,    RGB_HUI,    _______ },
+                {   _______,    _______,    _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    RGB_VAI,    _______,    _______,    RGB_SAD,    _______,    _______ },
+                {   _______,    GUI_LOCK,   _______,    _______, _______,    _______, _______, _______,    _______,    _______,    _______,    _______,    _______,    _______,    RGB_SPD,    RGB_VAD,    RGB_SPI,    _______,    _______,    RGB_TOG,    _______ }
+              }
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_LOCK:
+            /* win lock */
+            if (record->event.pressed) {
+                keymap_config.raw = eeconfig_read_keymap();
+                keymap_config.no_gui = !keymap_config.no_gui;
+                eeconfig_update_keymap(keymap_config.raw);
+                clear_keyboard();
+            }
+            return false;
+    }
+    return true;
+}
