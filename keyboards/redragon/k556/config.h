@@ -103,6 +103,12 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+/* Default effect */
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_MULTISPLASH
+#define RGB_MATRIX_STARTUP_SPD 50   // slower reactive fade (0 to 255)
+#define RGB_MATRIX_STARTUP_SAT 255  // vivid saturation
+#define RGB_MATRIX_STARTUP_VAL 255  // max brightness
+
 #include "config_led.h"
 
 /* Enable RGB sleep */
